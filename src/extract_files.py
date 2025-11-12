@@ -2,8 +2,8 @@
 """
 Data Extraction and Feature Computation Script
 ----------------------------------------------
-Parses inertial sensor data from text files, extracts features using the
-TSFEL library, and saves all computed features into a single CSV file.
+Parses inertial sensor data from text files, extracts features using TSFEL,
+and saves all computed features into a single CSV file at a specified path.
 
 Created: Nov 30, 2024
 Author: Diogo Sequeira
@@ -15,15 +15,18 @@ import pandas as pd
 import tsfel
 
 
-def extract(path: str) -> pd.DataFrame:
+def extract(path: str, csv_path: str = None) -> pd.DataFrame:
     """
     Extracts inertial sensor data from text files, computes TSFEL features,
-    and combines results into a single CSV file.
+    and optionally saves results to a CSV file.
 
     Parameters
     ----------
     path : str
         Directory path containing the `.txt` sensor files.
+    csv_path : str, optional
+        Full path (including filename) where the CSV should be saved.
+        If None, CSV is not saved.
 
     Returns
     -------
@@ -32,6 +35,9 @@ def extract(path: str) -> pd.DataFrame:
     """
     # Find all .txt files in the directory
     file_list = [os.path.join(path, file) for file in os.listdir(path) if file.endswith(".txt")]
+
+    if not file_list:
+        raise ValueError(f"No .txt files found in {path}")
 
     all_features = []
     fs = 10  # Sampling frequency in Hz (100 ms intervals)
@@ -94,9 +100,10 @@ def extract(path: str) -> pd.DataFrame:
     combined_features = pd.concat(all_features, axis=0)
     combined_features["Class"] = combined_features["File"].apply(assign_class)
 
-    # Save to CSV
-    combined_features.to_csv("combined_features.csv", index=False, sep=";")
-    print("Feature extraction complete. File saved as 'combined_features.csv'.")
+    # Save CSV if path provided
+    if csv_path:
+        combined_features.to_csv(csv_path, index=False, sep=";")
+        print(f"Feature extraction complete. File saved as '{csv_path}'.")
 
     return combined_features
 
@@ -119,6 +126,7 @@ def assign_class(file_name: str) -> str:
 
 
 if __name__ == "__main__":
-    # Example usage (replace with your own path)
+    # Example usage
     directory = r"C:\Users\35193\OneDrive\Ambiente de Trabalho\data"
-    extract(directory)
+    csv_output = r"C:\Users\35193\OneDrive\Ambiente de Trabalho\data\combined_features.csv"
+    extract(directory, csv_output)
