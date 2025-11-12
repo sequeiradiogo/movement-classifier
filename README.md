@@ -52,6 +52,7 @@ filter_features("path/to/data_raw")
 `SVM_LOO.py` trains a linear SVM using Leave-One-Out cross-validation and reports model accuracy, classification report and confusion matrix.
 
 ![Alt text](images/confusion_matrix.png)
+
 ![Alt text](images/classification_report.png)
 
 ### 4. Prediction on New Data
