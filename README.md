@@ -1,4 +1,4 @@
-# Building Extraction from Satellite Images
+# Movement Classifier Using ML Algorithms
 
 This repository implements a complete pipeline for classifying inertial sensor data using a Support Vector Machine (SVM) model. The project extracts time-domain features from raw motion data, filters them for relevance, and performs classification using Leave-One-Out Cross-Validation (LOOCV) for robust evaluation.
 
