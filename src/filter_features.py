@@ -61,5 +61,5 @@ def filter_features(path: str) -> pd.DataFrame:
 
 if __name__ == "__main__":
     # Example usage (replace with your actual path)
-    directory = r"C:\Users\35193\OneDrive\Ambiente de Trabalho\Universidade\5º ano 1º semestre\AAI\dados_novos"
+    directory = r"C:\Users\35193\OneDrive\Ambiente de Trabalho\Universidade\data"
     filter_features(directory)
